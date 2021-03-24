@@ -1386,6 +1386,7 @@ i.iconfont.hotpost {
 .float-contents {
     margin: 4px 0;
     height: 44px;
+    overflow:hidden;
 }
 
 .post-meta {
