@@ -104,7 +104,7 @@
         $filter = akina_option('focus_img_filter');
         ?>
         <div class="headertop <?php echo $filter; ?>">
-            <video src="https://www.sdutwsl.xyz/wp-content/uploads/2021/07//20CM.mp4" style="height:100vh;width:auto;position:absolute;"></video>
+            <video src="https://www.sdutwsl.xyz/wp-content/uploads/2021/07//20CM.mp4" style="height:100vh;width:100vw;position:absolute;"></video>
             <?php get_template_part('layouts/imgbox'); ?>
         </div>
     <?php } ?>
