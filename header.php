@@ -104,7 +104,6 @@
         $filter = akina_option('focus_img_filter');
         ?>
         <div class="headertop <?php echo $filter; ?>">
-            <video id="cool-video" src="https://www.sdutwsl.xyz/wp-content/uploads/2021/07//20CM.mp4" style="width:100vw;position:absolute;"></video>
             <button onclick="document.querySelector('#cool-video').play()" style="position:absolute;z-index:10;left:95vw;top:95vh;">播放</button>
             <?php get_template_part('layouts/imgbox'); ?>
         </div>
