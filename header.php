@@ -100,6 +100,7 @@
 </head>
 <body <?php body_class(); ?>>
 <section id="main-container">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=110 src="//music.163.com/outchain/player?type=1&id=143306893&auto=1&height=90"  style="position:fixed;right:10px;bottom:10px;z-index:100;"></iframe>
     <?php if (!akina_option('head_focus')) {
         $filter = akina_option('focus_img_filter');
         ?>
