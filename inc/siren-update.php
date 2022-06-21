@@ -96,7 +96,10 @@ function get_avatar_profile_url($id)
  */
 function get_random_bg_url()
 {
-    if (akina_option('focus_img_0')) {
+    if (akina_option('focus_img_1')) {
+        $strings = '' . mt_rand(0, 20);
+        $img_url = akina_option('focus_img_1') . '/' . $strings;
+    } elif (akina_option('focus_img_0')) {
         $date_strings = date('Y') . date('m') . date('d') . date('H') . date('i') . date('s') . mt_rand(100000, 999999);
         $md5_strings = md5($date_strings);
         $strings = substr($md5_strings, 0, 8);

@@ -434,6 +434,14 @@ function optionsframework_options()
     );
 
     $options[] = array(
+        'name' => __('七牛云背景图文件夹', 'options_framework_theme'),
+        'desc' => __('这里填入一个七牛云背景图文件夹', 'options_framework_theme'),
+        'id' => 'focus_img_1',
+        'std' => '',
+        'type' => 'text'
+    );
+
+    $options[] = array(
         'name' => __('背景图滤镜', 'options_framework_theme'),
         'id' => 'focus_img_filter',
         'std' => "filter-nothing",
