@@ -15,7 +15,7 @@ $bg_style = akina_option('focus_height') ? 'background-position: center center;b
         if (is_user_logged_in()) :
             ?>
             <div class="header-tou">
-                <a href="<?php bloginfo('url'); ?>"><img src="<?php echo get_avatar_profile_url($current_user->user_email); ?>"></a>
+                <a href="<?php bloginfo('url'); ?>"><img src="<?php echo akina_option('akina_logo'); ?>"></a>
             </div>
         <?php elseif (akina_option('focus_logo')) : ?>
             <div class="header-tou">
