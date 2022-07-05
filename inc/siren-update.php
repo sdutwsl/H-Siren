@@ -116,7 +116,8 @@ function get_random_qiniu_pic_url($ak, $pk, $bk, $ph)
             array_push($pics, $key);
         }
     }
-    return $pics[array_rand($pics)];
+    // return $pics[array_rand($pics)];
+    return "uploads/wallpapers/landscape/元旦贺图 1920x1080.jpg";
 }
 
 /**
