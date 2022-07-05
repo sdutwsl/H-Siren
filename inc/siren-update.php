@@ -124,7 +124,8 @@ function get_random_qiniu_pic_url($ak, $pk, $bk, $ph)
  */
 function get_random_bg_url()
 {
-    if (akina_option('qiniu_ak') && akina_option('qiniu_sk') && akina_option('qiniu_path') && akina_option('qiniu_bucket')) {
+    if (akina_option('qiniu_ak') && akina_option('qiniu_sk') && akina_option('qiniu_path') && akina_option('qiniu_bucket') && akina_option('qiniu_domain')) {
+        $domain = akina_option('qiniu_domain');
         $ak = akina_option('qiniu_ak');
         $pk = akina_option('qiniu_sk');
         $bucket = akina_option('qiniu_bucket');
@@ -132,7 +133,7 @@ function get_random_bg_url()
         $format = akina_option('qiniu_format_string');
         $pic = get_random_qiniu_pic_url($ak, $pk, $bucket, $path);
         echo $pic;
-        return $pic . '?' . $format;
+        return $domain . '/' . $pic . '?' . $format;
     } elseif (akina_option('focus_img_0')) {
         $date_strings = date('Y') . date('m') . date('d') . date('H') . date('i') . date('s') . mt_rand(100000, 999999);
         $md5_strings = md5($date_strings);

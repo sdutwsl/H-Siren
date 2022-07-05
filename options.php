@@ -435,6 +435,14 @@ function optionsframework_options()
     );
 
     $options[] = array(
+        'name' => __('七牛云域名', 'options_framework_theme'),
+        'desc' => __('这里填入一个七牛云的CDN域名', 'options_framework_theme'),
+        'id' => 'qiniu_domain',
+        'std' => '',
+        'type' => 'text'
+    );
+
+    $options[] = array(
         'name' => __('七牛云AK', 'options_framework_theme'),
         'desc' => __('这里填入一个七牛云的AK', 'options_framework_theme'),
         'id' => 'qiniu_ak',
@@ -449,7 +457,7 @@ function optionsframework_options()
         'std' => '',
         'type' => 'text'
     );
-    
+
     $options[] = array(
         'name' => __('七牛云bucket', 'options_framework_theme'),
         'desc' => __('这里填入一个七牛云的bucket', 'options_framework_theme'),
