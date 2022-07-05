@@ -1,7 +1,9 @@
 <?php
 
 
-require '../qiniu-php-sdk-7.6.0/autoload.php';
+set_include_path('../qiniu-php-sdk-7.6.0')
+
+require 'autoload.php';
 
 use Qiniu\Auth;
 
