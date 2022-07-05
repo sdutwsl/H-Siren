@@ -124,7 +124,9 @@ function get_random_qiniu_pic_url($ak, $pk, $bk, $ph)
  */
 function get_random_bg_url()
 {
+    echo "000";
     if (akina_option('qiniu_ak') && akina_option('qiniu_sk') && akina_option('qiniu_path') && akina_option('qiniu_bucket')) {
+        echo "111";
         $ak = akina_option('qiniu_ak');
         $pk = akina_option('qiniu_sk');
         $bucket = akina_option('qiniu_bucket');
