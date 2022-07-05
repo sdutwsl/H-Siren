@@ -1,4 +1,10 @@
 <?php
+
+
+require '../qiniu-php-sdk-7.6.0/autoload.php';
+
+use Qiniu\Auth;
+
 /**
  * Custom function
  * @Siren
@@ -84,21 +90,49 @@ function get_avatar_profile_url($id)
 {
     $author_img = get_avatar($id);
     $imgtag = '/<img.*?src=(["\'])(.+?)\1.*?>/i';
-    if(preg_match($imgtag, $author_img, $imgurl)){
+    if (preg_match($imgtag, $author_img, $imgurl)) {
         $avatar = $imgurl[2];
     }
     return $avatar;
 }
 
+/**
+ * 获取七牛云随机图片
+ */
+function get_random_qiniu_pic_url($ak, $pk, $bk, $ph)
+{
+    $accessKey = $ak;
+    $secretKey = $pk;
+    $bucket = $bk;
+    $path = $ph;
+    $auth = new Auth($accessKey, $secretKey);
+    $config = new \Qiniu\Config();
+    $bucketManager = new \Qiniu\Storage\BucketManager($auth, $config);
+    $files = $bucketManager->listFilesv2($bucket);
+
+    $pics = array();
+
+    foreach ($files[0] as $key => $value) {
+        $key = json_decode($value, true)['item']['key'];
+        if (strstr($key, $path)) {
+            array_push($pics, $key);
+        }
+    }
+    return $pics[array_rand($pics)];
+}
 
 /**
  * 随机背景图
  */
 function get_random_bg_url()
 {
-    if (akina_option('focus_img_1')) {
-        $strings = '' . mt_rand(1, 5);
-        $img_url = akina_option('focus_img_1') . '/' . $strings . '.jpg?imageView2/1/w/1366/h/768/format/png/q/75';
+    if (akina_option('qiniu_ak') && akina_option('qiniu_sk') && akina_option('qiniu_path') && akina_option('qiniu_bucket')) {
+        $ak = akina_option('qiniu_ak');
+        $pk = akina_option('qiniu_sk');
+        $bucket = akina_option('qiniu_bucket');
+        $path = akina_option('qiniu_path');
+        $format = akina_option('qiniu_format_string');
+        return get_random_qiniu_pic_url($ak, $pk, $bucket, $path) . '?' . $format;
     } elseif (akina_option('focus_img_0')) {
         $date_strings = date('Y') . date('m') . date('d') . date('H') . date('i') . date('s') . mt_rand(100000, 999999);
         $md5_strings = md5($date_strings);
@@ -246,7 +280,7 @@ if (!function_exists('siren_ajax_comment_callback')) {
         $user = wp_get_current_user();
         do_action('set_comment_cookies', $comment, $user);
         $GLOBALS['comment'] = $comment; //根据你的评论结构自行修改，如使用默认主题则无需修改
-        ?>
+?>
         <li <?php comment_class(); ?> id="comment-<?php echo esc_attr(comment_ID()); ?>">
             <div class="contents">
                 <div class="comment-arrow">
@@ -278,7 +312,7 @@ if (!function_exists('siren_ajax_comment_callback')) {
                 </div>
             </div>
         </li>
-        <?php die();
+    <?php die();
     }
 }
 add_action('wp_ajax_nopriv_ajax_comment', 'siren_ajax_comment_callback');
@@ -317,18 +351,22 @@ function Exuser_center()
         }
     </script>
     <?php if (current_user_can('level_10')) { ?>
-    <div class="admin-login-check">
-        <?php echo login_ok(); ?>
-        <?php if (akina_option('login_urlskip')) { ?>
-            <script>gopage("<?php bloginfo('url'); ?>/wp-admin/", 1);</script><?php } ?>
-    </div>
-<?php } else { ?>
-    <div class="user-login-check">
-        <?php echo login_ok(); ?>
-        <?php if (akina_option('login_urlskip')) { ?>
-            <script>gopage("<?php bloginfo('url'); ?>", 0);</script><?php } ?>
-    </div>
-<?php }
+        <div class="admin-login-check">
+            <?php echo login_ok(); ?>
+            <?php if (akina_option('login_urlskip')) { ?>
+                <script>
+                    gopage("<?php bloginfo('url'); ?>/wp-admin/", 1);
+                </script><?php } ?>
+        </div>
+    <?php } else { ?>
+        <div class="user-login-check">
+            <?php echo login_ok(); ?>
+            <?php if (akina_option('login_urlskip')) { ?>
+                <script>
+                    gopage("<?php bloginfo('url'); ?>", 0);
+                </script><?php } ?>
+        </div>
+    <?php }
 }
 
 // 登录成功
@@ -369,13 +407,13 @@ function the_headPattern()
         } else {
             $full_image_url = get_random_bg_url();
         }
-        if (have_posts()) : while (have_posts()) : the_post() ;
-            $center = 'single-center';
-            $header = 'single-header';
-            $ava = get_avatar_profile_url(get_the_author_meta('ID'));
-            $t .= the_title('<h1 class="entry-title">', '</h1>', false);
-            $t .= '<p class="entry-census"><span><a href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'), get_the_author_meta('user_nicename'))) . '"><img src="' . $ava . '"></a></span><span><a href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'), get_the_author_meta('user_nicename'))) . '">' . get_the_author() . '</a></span><span class="bull">·</span>' . poi_time_since(get_post_time('U', true), false, true) . '<span class="bull">·</span>' . get_post_views(get_the_ID()) . ' 次阅读</p>';
-        endwhile;
+        if (have_posts()) : while (have_posts()) : the_post();
+                $center = 'single-center';
+                $header = 'single-header';
+                $ava = get_avatar_profile_url(get_the_author_meta('ID'));
+                $t .= the_title('<h1 class="entry-title">', '</h1>', false);
+                $t .= '<p class="entry-census"><span><a href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'), get_the_author_meta('user_nicename'))) . '"><img src="' . $ava . '"></a></span><span><a href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'), get_the_author_meta('user_nicename'))) . '">' . get_the_author() . '</a></span><span class="bull">·</span>' . poi_time_since(get_post_time('U', true), false, true) . '<span class="bull">·</span>' . get_post_views(get_the_ID()) . ' 次阅读</p>';
+            endwhile;
         endif;
     } elseif (is_page()) {
         if (has_post_thumbnail()) {
@@ -397,11 +435,15 @@ function the_headPattern()
         $full_image_url = get_random_bg_url();
         $t .= '<h1 class="entry-title search-title"> 关于“ ' . get_search_query() . ' ”的搜索结果</h1>';
     }
-    if (akina_option('patternimg')) $full_image_url = false ;
+    if (akina_option('patternimg')) $full_image_url = false;
     if (!is_home() && $full_image_url) : ?>
-        <div class="pattern-center <?php if (is_single()) { echo $center; } ?>">
+        <div class="pattern-center <?php if (is_single()) {
+                                        echo $center;
+                                    } ?>">
             <div class="pattern-attachment-img" style="background-image: url(<?php echo $full_image_url; ?>)"></div>
-            <header class="pattern-header <?php if (is_single()) { echo $header; } ?>"><?php echo $t; ?></header>
+            <header class="pattern-header <?php if (is_single()) {
+                                                echo $header;
+                                            } ?>"><?php echo $t; ?></header>
         </div>
     <?php else : echo '<div class="blank"></div>';
     endif;
@@ -413,11 +455,11 @@ function the_headPattern()
  */
 function header_user_menu()
 {
-    global $current_user ;
+    global $current_user;
     get_currentuserinfo();
     if (is_user_logged_in()) {
         $ava = akina_option('akina_logo');
-        ?>
+    ?>
         <div class="header-user-avatar">
             <img src="<?php echo $ava; ?>" width="30" height="30">
             <div class="header-user-menu">
@@ -434,11 +476,11 @@ function header_user_menu()
                 </div>
             </div>
         </div>
-        <?php
+    <?php
     } else {
         $ava = get_template_directory_uri() . '/images/none.png';
         $login_url = akina_option('new_login_url') ? akina_option('new_login_url') : get_bloginfo('url') . '/wp-login.php';
-        ?>
+    ?>
         <div class="header-user-avatar">
             <a href="<?php echo $login_url; ?>">
                 <img src="<?php echo $ava; ?>" width="30" height="30">
@@ -449,7 +491,7 @@ function header_user_menu()
                 </div>
             </div>
         </div>
-        <?php
+    <?php
     }
 }
 
@@ -459,11 +501,11 @@ function header_user_menu()
  */
 function mobile_user_menu()
 {
-    global $current_user ;
+    global $current_user;
     get_currentuserinfo();
     if (is_user_logged_in()) {
         $ava = get_avatar_profile_url($current_user->user_email);
-        ?>
+    ?>
         <div class="m-avatar">
             <?php if (current_user_can('level_10')) { ?>
                 <a href="<?php bloginfo('url'); ?>/wp-admin/" target="_top">
@@ -594,7 +636,6 @@ function no_category_base_permastruct()
 {
     global $wp_rewrite, $wp_version;
     if (version_compare($wp_version, '3.4', '<')) {
-
     } else {
         $wp_rewrite->extra_permastructs['category']['struct'] = '%category%';
     }
@@ -608,7 +649,7 @@ function no_category_base_rewrite_rules($category_rewrite)
     $categories = get_categories(array('hide_empty' => false));
     foreach ($categories as $category) {
         $category_nicename = $category->slug;
-        if ($category->parent == $category->cat_ID)// recursive recursion
+        if ($category->parent == $category->cat_ID) // recursive recursion
             $category->parent = 0;
         elseif ($category->parent != 0)
             $category_nicename = get_category_parents($category->parent, false, '/', true) . $category_nicename;
@@ -742,9 +783,9 @@ function disable_dashboard_widgets()
 {
     //remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal');//近期评论
     //remove_meta_box('dashboard_recent_drafts', 'dashboard', 'normal');//近期草稿
-    remove_meta_box('dashboard_primary', 'dashboard', 'core');//WordPres博客
-    remove_meta_box('dashboard_secondary', 'dashboard', 'core');//WordPres其它新闻
-    remove_meta_box('dashboard_right_now', 'dashboard', 'core');//WordPres概况
+    remove_meta_box('dashboard_primary', 'dashboard', 'core'); //WordPres博客
+    remove_meta_box('dashboard_secondary', 'dashboard', 'core'); //WordPres其它新闻
+    remove_meta_box('dashboard_right_now', 'dashboard', 'core'); //WordPres概况
     //remove_meta_box('dashboard_incoming_links', 'dashboard', 'core');//WordPres链入链接
     //remove_meta_box('dashboard_plugins', 'dashboard', 'core');//WordPres链入插件
     //remove_meta_box('dashboard_quick_press', 'dashboard', 'core');//WordPres快速发布
@@ -762,7 +803,7 @@ function siren_get_useragent($ua)
         $imgurl = get_bloginfo('template_directory') . '/images/ua/';
         $browser = siren_get_browsers($ua);
         $os = siren_get_os($ua);
-        return '<span class="useragent-info">「 <img src="' . $imgurl . $browser[1] . '.png">' . ' ' . $browser[0] . ' ● <img src="' . $imgurl . $os[1] . '.png">' . ' ' . $os[0] .' 」</span>';
+        return '<span class="useragent-info">「 <img src="' . $imgurl . $browser[1] . '.png">' . ' ' . $browser[0] . ' ● <img src="' . $imgurl . $os[1] . '.png">' . ' ' . $os[0] . ' 」</span>';
     }
     return false;
 }
@@ -778,7 +819,7 @@ function the_reward()
     if ($alipay || $wechat) {
         $alipay = $alipay ? '<li class="alipay-code"><img src="' . $alipay . '"></li>' : '';
         $wechat = $wechat ? '<li class="wechat-code"><img src="' . $wechat . '"></li>' : '';
-        ?>
+    ?>
         <div class="single-reward">
             <div class="reward-open">赏
                 <div class="reward-main">
@@ -788,6 +829,6 @@ function the_reward()
                 </div>
             </div>
         </div>
-        <?php
+<?php
     }
 }

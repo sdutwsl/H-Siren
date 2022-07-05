@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A unique identifier is defined to store the options in the database and reference them from the theme.
  * By default it uses the theme name, in lowercase and without spaces, but this can be changed if needed.
@@ -434,9 +435,41 @@ function optionsframework_options()
     );
 
     $options[] = array(
-        'name' => __('七牛云背景图文件夹', 'options_framework_theme'),
-        'desc' => __('这里填入一个七牛云背景图文件夹', 'options_framework_theme'),
-        'id' => 'focus_img_1',
+        'name' => __('七牛云AK', 'options_framework_theme'),
+        'desc' => __('这里填入一个七牛云的AK', 'options_framework_theme'),
+        'id' => 'qiniu_ak',
+        'std' => '',
+        'type' => 'text'
+    );
+
+    $options[] = array(
+        'name' => __('七牛云SK', 'options_framework_theme'),
+        'desc' => __('这里填入一个七牛云的SK', 'options_framework_theme'),
+        'id' => 'qiniu_sk',
+        'std' => '',
+        'type' => 'text'
+    );
+    
+    $options[] = array(
+        'name' => __('七牛云bucket', 'options_framework_theme'),
+        'desc' => __('这里填入一个七牛云的bucket', 'options_framework_theme'),
+        'id' => 'qiniu_bucket',
+        'std' => '',
+        'type' => 'text'
+    );
+
+    $options[] = array(
+        'name' => __('七牛云图片路径', 'options_framework_theme'),
+        'desc' => __('这里填入一个七牛云的图片路径', 'options_framework_theme'),
+        'id' => 'qiniu_path',
+        'std' => '',
+        'type' => 'text'
+    );
+
+    $options[] = array(
+        'name' => __('七牛云背景图格式化字符串', 'options_framework_theme'),
+        'desc' => __('这里填入一个七牛云的图片格式化字符串，比如 imageView2/1/w/1366/h/768/format/png/q/75', 'options_framework_theme'),
+        'id' => 'qiniu_format_string',
         'std' => '',
         'type' => 'text'
     );
