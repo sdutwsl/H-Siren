@@ -1,5 +1,7 @@
 <?php
 
+echo dirname(__FILE__) . '../qiniu-php-sdk-7.6.0/autoload.php';
+
 require dirname(__FILE__) . '../qiniu-php-sdk-7.6.0/autoload.php';
 
 use Qiniu\Auth;
