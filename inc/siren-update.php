@@ -132,7 +132,7 @@ function get_random_bg_url()
         $path = akina_option('qiniu_path');
         $format = akina_option('qiniu_format_string');
         $pic = get_random_qiniu_pic_url($ak, $pk, $bucket, $path);
-        echo $pic;
+        // echo $pic;
         return $domain . '/' . $pic . '?' . $format;
     } elseif (akina_option('focus_img_0')) {
         $date_strings = date('Y') . date('m') . date('d') . date('H') . date('i') . date('s') . mt_rand(100000, 999999);
