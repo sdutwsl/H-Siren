@@ -1,5 +1,5 @@
 <?php
-$image_file = get_random_bg_url() ? 'background-image: url("' . get_random_bg_url() . '");' : '';
+$image_file = get_random_bg_url() ? "background-image: url('". get_random_bg_url() . "');" : "";
 $bg_style = akina_option('focus_height') ? 'background-position: center center;background-attachment: inherit;' : '';
 ?>
 <?php if (akina_option('background_style') == 'simple') { ?>
