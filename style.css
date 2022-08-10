@@ -4622,9 +4622,9 @@ i.iconfont.down {
         display: block
     }
 
-    .site-header {
+    /* .site-header {
         display: none
-    }
+    } */
 
     .site-branding {
         float: right;
