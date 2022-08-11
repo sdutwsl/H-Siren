@@ -51,7 +51,7 @@
         <meta name="description" content="<?php echo $description; ?>"/>
         <meta name="keywords" content="<?php echo $keywords; ?>"/>
     <?php } ?>
-    <link rel="shortcut icon" href="<?php akina_option('akina_logo'); ?>"/>
+    <link rel="shortcut icon" href="<?php echo akina_option('akina_logo'); ?>"/>
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/OwO/meme.css"/>
     <?php if (akina_option('live2d_s') != '0') { ?>
         <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/live2d/css/live2d.css"/>
