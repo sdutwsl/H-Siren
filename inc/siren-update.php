@@ -473,7 +473,7 @@ function header_user_menu()
                         <a href="<?php bloginfo('url'); ?>/wp-admin/post-new.php" target="_top">撰写文章</a>
                     <?php } ?>
                     <a href="<?php bloginfo('url'); ?>/wp-admin/profile.php" target="_top">个人资料</a>
-                    <a href="<?php bloginfo('url'); ?>/AriaNg/" target="_top">AriaNG</a>
+                    <a href="<?php bloginfo('url'); ?>/AriaNG/" target="_top">AriaNG</a>
                     <a href="<?php echo wp_logout_url(get_bloginfo('url')); ?>" target="_top">退出登录</a>
                 </div>
             </div>
