@@ -506,7 +506,7 @@ function mobile_user_menu()
     global $current_user;
     get_currentuserinfo();
     if (is_user_logged_in()) {
-        $ava = get_avatar_profile_url($current_user->user_email);
+        $ava = akina_option('akina_logo');
     ?>
         <div class="m-avatar">
             <?php if (current_user_can('level_10')) { ?>
