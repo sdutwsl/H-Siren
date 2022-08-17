@@ -98,8 +98,6 @@ if (!function_exists('akina_setup')) :
         remove_action('wp_head', 'wp_oembed_add_host_js');
         remove_action('template_redirect', 'rest_output_link_header', 11, 0);
 
-        add_filter('automatic_updater_disabled', '__return_true');    //彻底关闭自动更新
-
         remove_action('init', 'wp_schedule_update_checks');    //关闭更新检查定时计划
 
         wp_clear_scheduled_hook('wp_version_check');    //移除版本检查定时计划
