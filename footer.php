@@ -101,18 +101,26 @@
     </script>
 <?php } ?>
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/OwO/meme.js"></script>
+<script type="text/javascript">
+    function loadScript(src) {
+        let script = document.createElement("script");
+        script.src = src;
+        script.defer = true;
+        document.body.append(script);
+    }
+</script>
 <?php if (akina_option('click_effect') == 'click' || akina_option('click_effect') == 'all') { ?>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.min.js"></script>
     <script type="text/javascript">
         if (screen && screen.width > 860) {
-            document.write('<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/fireworks.js"><\/script>');
+            loadScript("<?php bloginfo('template_url'); ?>/js/fireworks.js");
         }
     </script>
 <?php } ?>
 <?php if (akina_option('click_effect') == 'slide' || akina_option('click_effect') == 'all') { ?>
     <script type="text/javascript">
         if (screen && screen.width > 860) {
-            document.write('<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/inc/js/cursor-effects.js"><\/script>');
+            loadScript("<?php bloginfo('template_url'); ?>/inc/js/cursor-effects.js");
         }
     </script>
 <?php } ?>
@@ -133,9 +141,9 @@
 <?php if (akina_option('live2d_s') != '0') { ?>
     <script type="text/javascript">
         if (screen && screen.width > 860) {
-            document.write('<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/live2d/js/live2d.js"><\/script>');
-            document.write('<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/live2d/js/message.js"><\/script>');
-            document.write('<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/live2d/js/<?php if (akina_option('live2d_b') == true && akina_option('live2d_i')) { ?>run_field.js<?php } else { ?>run_local.js<?php } ?>"><\/script>');
+            loadScript("<?php bloginfo('template_url'); ?>/live2d/js/live2d.js");
+            loadScript("<?php bloginfo('template_url'); ?>/live2d/js/message.js");
+            loadScript("<?php bloginfo('template_url'); ?>/live2d/js/<?php if (akina_option('live2d_b') == true && akina_option('live2d_i')) { ?>run_field.js<?php } else { ?>run_local.js<?php } ?>");
         }
     </script>
 <?php } ?>

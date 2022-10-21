@@ -4948,6 +4948,7 @@ i.iconfont.down {
 /*iconfont **/
 @font-face {
     font-family: "iconfont";
+    font-display: swap;
     src: url('inc/fonts/iconfont.eot?t=1461591491'); /* IE9*/
     src: url('inc/fonts/iconfont.eot?t=1461591491#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('inc/fonts/iconfont.woff?t=1461591491') format('woff'), /* chrome, firefox */ url('inc/fonts/iconfont.ttf?t=1461591491') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/ url('inc/fonts/iconfont.svg?t=1461591491#iconfont') format('svg'); /* iOS 4.1- */
 }

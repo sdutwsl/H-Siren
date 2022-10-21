@@ -840,3 +840,21 @@ if (version_compare($wp_version, '5.1.1', '>=')) {
         return $link;
     }
 }
+
+
+//延迟css加载
+// To defer loading of non-critical CSS
+function aimeesign_defer_css_rel_preload($html, $handle, $href, $media){
+    if ( !is_admin() ) {
+        # 不添加延迟加载的列表 (style-1,style-2...修改为你不想延迟加载的文件名)
+        $styles_to_exclude = array('style.css','APlayer.min.css');
+
+        foreach($styles_to_exclude as $exclude_style){
+            if(true == strpos($html, $exclude_style ) )
+                return $html;
+            }
+        return $html = '<link rel="preload" href="' . $href . '" as="style" id="' . $handle . '" media="' . $media . '" onload="this.onload=null;this.rel=\'stylesheet\'">'
+		. '<link rel="stylesheet" href="' . $href . '" id="' . $handle . '" media="print" onload="this.media=\'all\'">' . '<noscript>' . $html . '</noscript>';
+  }
+} 
+add_filter( 'style_loader_tag', 'aimeesign_defer_css_rel_preload', 10, 4 );
