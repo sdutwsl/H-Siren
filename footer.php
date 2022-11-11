@@ -38,7 +38,7 @@
             </p>
         </div>
         <div class="footer-device">
-            <p><?php echo akina_option('record') ? '<a href="http://www.beian.miit.gov.cn" target="_blank" rel="nofollow">' . akina_option('record') . '</a>' : ''; ?></p>
+            <p><?php echo akina_option('record') ? '<a href="https://beian.miit.gov.cn" target="_blank" rel="nofollow">' . akina_option('record') . '</a>' : ''; ?></p>
         </div>
         <?php if (akina_option('web_runtime') != '0') { ?>
             <div class="footer-device">
