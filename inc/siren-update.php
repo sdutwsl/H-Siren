@@ -109,10 +109,10 @@ function get_random_qiniu_pic_url($ak, $pk, $bk, $ph)
     $files = $bucketManager->listFilesv2($bucket);
 
     $pics = array();
-
+    
     foreach ($files[0] as $key => $value) {
         $key = json_decode($value, true)['item']['key'];
-        if (strstr($key, $path)) {
+	if (strstr($key, $path)) {
             array_push($pics, $key);
         }
     }
