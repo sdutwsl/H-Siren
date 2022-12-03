@@ -28,7 +28,7 @@
             <p class="foo-logo" style="background-image: url('<?php bloginfo('template_url'); ?>/images/f-logo.png');"></p>
             <p><?php echo akina_option('footer_info', ''); ?></p>
         </div>
-        <div class="footer-device">
+        <!-- <div class="footer-device">
             <p>
                 <?php
                 $statistics_link = akina_option('site_statistics_link') ? '<a href="' . akina_option('site_statistics_link') . '" target="_blank" rel="nofollow">Statistics</a>' : '';
@@ -36,7 +36,7 @@
                 printf(esc_html__('%1$s &nbsp; %2$s &nbsp; %3$s &nbsp; %4$s', 'akina'), $site_map_link, '<a href="https://haremu.com" rel="designer" target="_blank" rel="nofollow">Theme</a>', '<a href="https://wordpress.org" target="_blank" rel="nofollow">WordPress</a>', $statistics_link);
                 ?>
             </p>
-        </div>
+        </div> -->
         <div class="footer-device">
             <p><?php echo akina_option('record') ? '<a href="https://beian.miit.gov.cn" target="_blank" rel="nofollow">' . akina_option('record') . '</a>' : ''; ?></p>
         </div>
