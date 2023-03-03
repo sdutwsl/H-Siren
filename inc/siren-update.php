@@ -1,7 +1,4 @@
 <?php
-require dirname(__FILE__) . '/../qiniu-php-sdk-7.6.0/autoload.php';
-
-use Qiniu\Auth;
 
 /**
  * Custom function
