@@ -443,9 +443,9 @@ function optionsframework_options()
     );
 
     $options[] = array(
-        'name' => __('七牛云AK', 'options_framework_theme'),
-        'desc' => __('这里填入一个七牛云的AK', 'options_framework_theme'),
-        'id' => 'qiniu_ak',
+        'name' => __('背景图API接口', 'options_framework_theme'),
+        'desc' => __('这里填入背景图API接口', 'options_framework_theme'),
+        'id' => 'img_rpc',
         'std' => '',
         'type' => 'text'
     );
