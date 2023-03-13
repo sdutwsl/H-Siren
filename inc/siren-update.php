@@ -96,9 +96,9 @@ function get_avatar_profile_url($id)
  */
 function get_random_qiniu_pic_url($img_rpc)
 {
-    static $random_img_index = 0;
     $html = file_get_contents($img_rpc);
     $pics = json_decode($html);
+    static $random_img_index = rand(0, count($pics));
     return $pics[$random_img_index++%count($pics)];
 }
 
