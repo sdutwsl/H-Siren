@@ -96,9 +96,14 @@ function get_avatar_profile_url($id)
  */
 function get_random_qiniu_pic_url($img_rpc)
 {
+    if(!$GLOBALS["random_img_index"]){
+        $GLOBALS["random_img_index"] = 0;
+    }else{
+        $GLOBALS["random_img_index"] = $GLOBALS["random_img_index"] + 1;
+    }
     $html = file_get_contents($img_rpc);
     $pics = json_decode($html);
-    return $pics[array_rand($pics)];
+    return $pics[$GLOBALS["random_img_index"]%count($pics)];
 }
 
 /**
