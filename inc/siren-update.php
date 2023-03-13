@@ -10,6 +10,7 @@ remove_filter('pre_term_description', 'wp_filter_kses');
 remove_filter('term_description', 'wp_kses_data');
 // 去除顶部工具栏
 show_admin_bar(false);
+$random_img_index = 0;
 
 
 /**
@@ -98,7 +99,9 @@ function get_random_qiniu_pic_url($img_rpc)
 {
     $html = file_get_contents($img_rpc);
     $pics = json_decode($html);
-    static $random_img_index = rand(0, count($pics));
+    if($random_img_index == 0){
+        $random_img_index = rand(0, count($pics)
+    }
     return $pics[$random_img_index++%count($pics)];
 }
 
