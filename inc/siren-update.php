@@ -100,7 +100,7 @@ function get_random_qiniu_pic_url($img_rpc)
     $html = file_get_contents($img_rpc);
     $pics = json_decode($html);
     if($random_img_index == 0){
-        $random_img_index = rand(0, count($pics)
+        $random_img_index = rand(0, count($pics);
     }
     return $pics[$random_img_index++%count($pics)];
 }
