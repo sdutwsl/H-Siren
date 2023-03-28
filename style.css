@@ -3484,9 +3484,9 @@ li.feature-2 {
         background-attachment: scroll;
     }
 
-    .focusinfo, #video-container {
+    /* .focusinfo, #video-container {
         display: none;
-    }
+    } */
 }
 
 .blank {
