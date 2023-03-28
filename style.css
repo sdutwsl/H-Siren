@@ -3480,7 +3480,7 @@ li.feature-2 {
 
 @media (max-width: 860px) {
     #centerbg {
-        /* height: 300px !important; */
+        height: 300px !important;
         background-attachment: scroll;
     }
 
