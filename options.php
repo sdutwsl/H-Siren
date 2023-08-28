@@ -435,11 +435,11 @@ function optionsframework_options()
     );
 
     $options[] = array(
-        'name' => __('背景图API接口', 'options_framework_theme'),
-        'desc' => __('这里填入背景图API接口', 'options_framework_theme'),
+        'name' => __('背景图地址', 'options_framework_theme'),
+        'desc' => __('这里填入背景图JSON数组格式地址', 'options_framework_theme'),
         'id' => 'img_rpc',
         'std' => '',
-        'type' => 'text'
+        'type' => 'textarea'
     );
 
     $options[] = array(
